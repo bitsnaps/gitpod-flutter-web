@@ -9,10 +9,12 @@ RUN apt-get autoremove -y \
 RUN mkdir /home/gitpod
 WORKDIR /home/gitpod
 
+RUN git clone https://github.com/flutter/flutter -b stable && \
+    cd flutter && \
+    /home/gitpod/flutter/bin/flutter config channel stable && \
+    /home/gitpod/flutter/bin/flutter config --enable-web && \
+    /home/gitpod/flutter/bin/flutter --version
+
 ENV PUB_CACHE=/home/gitpod/.pub_cache
 ENV PATH="/home/gitpod/flutter/bin:$PATH"
 
-RUN git clone https://github.com/flutter/flutter && \
-    cd flutter && \
-    /home/gitpod/flutter/bin/flutter config --enable-web && \
-    /home/gitpod/flutter/bin/flutter   --version

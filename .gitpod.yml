@@ -1,6 +1,15 @@
 image:
   file: .gitpod.Dockerfile
-vscode:
-  extensions:
-    - Dart-Code.dart-code@3.16.0-dev.cloud.2:QwDf9NklkXLz3yA/A5Wsaw==
-    - Dart-Code.flutter@3.15.0:2NNVLOcQzPzXP73r8LBOJQ==
+
+tasks:
+
+- init: >
+    flutter update-packages &&
+    flutter run -d web-server --no-resident # prebuilds the app
+  command: >
+    flutter run -d web-server --web-port=8080 --web-hostname=0.0.0.0
+
+ports:
+- port: 8080
+  onOpen: open-preview
+
